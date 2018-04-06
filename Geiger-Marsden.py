@@ -2,18 +2,17 @@ from random import uniform
 
 from numpy import pi, sqrt
 
-area = 0.01 * 0.01  # m^2, the area which the alpha particles can hit
-thickness = 1e-3  # m
-alpha_count = 1000000
+area = 0.01 * 0.01  # m^2, the area which the alpha particles can hit: 1cm x 1cm
+thickness = 1e-3  # m, the thickness of the gold foil: 1mm
+alpha_count = 1000000  # the number of alpha particles to shoot at the foil
 
 # Constants
-e = 1.602e-19  # C, elementary charge
-k = 8.9875517873681764e9  # Nm^2/C^2, Coulomb's constant
-r = 7.3e-15  # m, radius of gold nucleus
+r = 7.3e-15  # m, true radius of gold nucleus
 
 atom_count = 5.901e28 * area * thickness  # 5.901e28 is the number of atoms in 1m^3 of gold
 
 
+# Shoots an alpha particle and determines if it was a hit or a miss
 def shoot():
     u = uniform(0, area)
     if u <= atom_count * pi * r ** 2:  # assuming no overlap in atoms
@@ -21,10 +20,10 @@ def shoot():
     return False  # miss
 
 
-c = 0
-for i in range(0, alpha_count):
+hit_count = 0
+for i in range(0, alpha_count):  # shoots all the alpha particles
     if shoot():
-        c += 1
+        hit_count += 1
 
-p = c / alpha_count  # probability of hit
-print(c, sqrt((area * p) / (pi * atom_count)))
+p = hit_count / alpha_count  # probability of hit
+print(hit_count, sqrt((area * p) / (pi * atom_count)))
