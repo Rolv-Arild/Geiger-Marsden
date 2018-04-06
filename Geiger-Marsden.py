@@ -26,4 +26,5 @@ for i in range(0, alpha_count):
     if shoot():
         c += 1
 
-print(c, sqrt((area * c / alpha_count) / (pi * atom_count)))
+p = c / alpha_count  # probability of hit
+print(c, sqrt((area * p) / (pi * atom_count)))
